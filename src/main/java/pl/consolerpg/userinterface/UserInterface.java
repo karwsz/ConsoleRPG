@@ -1,8 +1,6 @@
 package pl.consolerpg.userinterface;
  
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.io.PrintStream;
 
 import javax.swing.JFrame;
@@ -15,6 +13,7 @@ public class UserInterface extends JFrame {
         super("Karol's Console RPG game");
 
         JTextArea textArea = new JTextArea(50, 10);
+        textArea.setFont(new Font(Font.DIALOG_INPUT, Font.PLAIN,  20));
         textArea.setEditable(false);
         PrintStream printStream = new PrintStream(new CustomOutputStream(textArea));
          
