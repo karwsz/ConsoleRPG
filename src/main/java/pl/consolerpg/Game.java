@@ -24,24 +24,6 @@ public class Game {
 
         scanner = new Scanner(System.in);
 
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        System.out.println("X                                                  X");
-        System.out.println("X                                                  X");
-        System.out.println("X                                                  X");
-        System.out.println("X    O       O       O         O       O       O   X");
-        System.out.println("X                                                  X");
-        System.out.println("X                                                  X");
-        System.out.println("X                                                  X");
-        System.out.println("X                                                  X");
-        System.out.println("X                                                  X");
-        System.out.println("X                     O                            X");
-        System.out.println("X                                                  X");
-        System.out.println("X                                                  X");
-        System.out.println("X                                                  X");
-        System.out.println("X                                                  X");
-        System.out.println("X                                                  X");
-        System.out.println("X                                                  X");
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         System.out.println("Podaj nazwe swojej postaci: ");
         String playerCharacterName = scanner.nextLine();
         System.out.printf("Klasa postaci (%s):%n", CharacterClass.displayList());
