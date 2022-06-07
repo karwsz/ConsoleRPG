@@ -1,5 +1,5 @@
 package pl.consolerpg.userinterface;
- 
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -21,11 +21,12 @@ public class UserInterface extends JFrame {
     public UserInterface() {
         super("Karol's Console RPG game");
 
-        JTextArea textArea = new JTextArea(10, 10);
-        textArea.setBackground(Color.BLACK);
-        textArea.setForeground(Color.WHITE);
-        textArea.setFont(new Font(Font.DIALOG_INPUT, Font.PLAIN, 20));
-        textArea.setEditable(false);
+        JTextPane testPane = new JTextPane();
+        testPane.setBackground(Color.BLACK);
+        testPane.setForeground(Color.WHITE);
+        testPane.setFont(new Font(Font.DIALOG_INPUT, Font.PLAIN, 20));
+        testPane.setEditable(false);
+
 
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -33,7 +34,7 @@ public class UserInterface extends JFrame {
         constraints.gridy = 0;
         constraints.insets = new Insets(10, 10, 10, 10);
         constraints.anchor = GridBagConstraints.WEST;
-         
+
         constraints.gridx = 1;
 
         constraints.gridx = 0;
@@ -42,9 +43,9 @@ public class UserInterface extends JFrame {
         constraints.fill = GridBagConstraints.BOTH;
         constraints.weightx = 1.0;
         constraints.weighty = 1.0;
-         
-        add(new JScrollPane(textArea), constraints);
-         
+
+        add(new JScrollPane(testPane), constraints);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
         setFocusable(true);
@@ -75,9 +76,9 @@ public class UserInterface extends JFrame {
                         playerY += 1;
                         break;
                 }
-                textArea.setText("");
+                testPane.setText("");
                 map[playerX][playerY] = "O";
-                textArea.setText(mapToString());
+                testPane.setText(mapToString());
             }
 
             @Override
@@ -86,9 +87,72 @@ public class UserInterface extends JFrame {
             }
         });
 
+        testPane.setText(mapToString());
         requestFocusInWindow();
     }
-    
+
+    private String task() {
+        String nazwa =  "==================================================\n" +
+                         "|                                                |\n" +
+                         "|  YOUR NAME =  NAZWA____                        |\n" +
+                         "|                                                |\n" +
+                         "| ABCDEFGHIJKLMNOPQRS i tak dalej                |\n" +
+                         "|    |                                           |\n" +
+                         "|                                                |\n" +
+                         "|  jakiś kursor pod literkami strzalkami porusasz|\n" +
+                         "|  enterem wybierasz                             |\n" +
+                         "|                                                |\n" +
+                         "|                                                |\n" +
+                         "|                                                |\n" +
+                         "|                                                |\n" +
+                         "|                                                |\n" +
+                         "|                                                |\n" +
+                         "|                                                |\n" +
+                         "|                                                |\n" +
+                         "==================================================";
+
+        String postacIbron =  "==================================================\n" +
+                              "|                                                |\n" +
+                              "|    CHOOSE YOUR CLASS                           |\n" +
+                              "|                                                |\n" +
+                              "|    WARRIOR  <-               STR=2             |\n" +
+                              "|    MAGE                      DEX=9             |\n" +
+                              "|    ROGUE                     VIT=1             |\n" +
+                              "|                              ENE=5             |\n" +
+                              "|                                                |\n" +
+                              "|                                                |\n" +
+                              "|                                                |\n" +
+                              "|       tak samo strzalka ruszasz enter wybierasz|\n" +
+                              "|                                                |\n" +
+                              "|                                                |\n" +
+                              "|         to samo dla broni                      |\n" +
+                              "|                                                |\n" +
+                              "|                                                |\n" +
+                              "==================================================";
+
+
+
+        return "==================================================\n" +
+                "|HP 100/100   | DMG=99 DEF=99 VIT=99 |    ENEMY  |\n" +
+                "||*****-----| | STR=99 DEX=99 ENE=99 | HP 100/100|\n" +
+                "|================================================|\n" +
+                "|                                                |\n" +
+                "|                                                |\n" +
+                "|                                                |\n" +
+                "|                                                |\n" +
+                "|                                                |\n" +
+                "|                       O                        |\n" +
+                "|                                                |\n" +
+                "|                                                |\n" +
+                "|                                                |\n" +
+                "|                                                |\n" +
+                "|                                                |\n" +
+                "|                                                |\n" +
+                "|                                                |\n" +
+                "==================================================";
+
+    }
+
     private String mapToString() {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < map.length; i++) {
