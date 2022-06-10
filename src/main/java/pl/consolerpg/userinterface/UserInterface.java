@@ -12,10 +12,13 @@ import javax.swing.*;
 
 public class UserInterface extends JFrame {
 
-    private static final int KEY_UP = 38;
-    private static final int KEY_DOWN = 40;
-    private static final int KEY_LEFT = 37;
-    private static final int KEY_RIGHT = 39;
+    public static final int KEY_UP = 38;
+    public static final int KEY_DOWN = 40;
+    public static final int KEY_LEFT = 37;
+    public static final int KEY_RIGHT = 39;
+
+    public static final int SHIFT = 16;
+    public static final int ENTER = 13;
 
     private final String[][] map = new String[18][50];
     private int playerX = 9;
@@ -57,7 +60,7 @@ public class UserInterface extends JFrame {
         setSize(800, 600);
         setFocusable(true);
         setLocationRelativeTo(null);
-
+        setFocusTraversalKeysEnabled(false);
         generateMap();
         addKeyListener(new KeyListener() {
             @Override
@@ -72,6 +75,7 @@ public class UserInterface extends JFrame {
                 //Blokada ruchu w wypadku otwartego okienka
                 if (openWindow != null) {
                     openWindow.onKeyPress(keyEvent);
+                    updateWindowDisplay();
                     return;
                 }
 
@@ -98,7 +102,10 @@ public class UserInterface extends JFrame {
 
             @Override
             public void keyReleased(KeyEvent keyEvent) {
-                // Do nothing
+                if (openWindow != null) {
+                    openWindow.onKeyRelease(keyEvent);
+                    updateWindowDisplay();
+                }
             }
         });
 
@@ -210,7 +217,11 @@ public class UserInterface extends JFrame {
     // UIWindow
     public void applyWindow(UIWindow window) {
         openWindow = window;
-        testPane.setText(UIUtils.tableToString(window.display()));
+        updateWindowDisplay();
+    }
+
+    public void updateWindowDisplay() {
+        testPane.setText(UIUtils.tableToString(openWindow.display()));
     }
 
 }

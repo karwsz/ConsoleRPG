@@ -24,4 +24,16 @@ public class UIUtils {
 
         return result;
     }
+
+    public static String[][] setStringAtIndex(String string, int y, int x, String value) {
+        String[][] table = stringToTable(string);
+        table[y][x] = value;
+        return table;
+    }
+
+    public static void insertStringAtIndex(String[][] string, int x, int y, String value) {
+        for (int i = 0; i < value.length(); i++) {
+            string[y][x + i] = String.valueOf(value.charAt(i));
+        }
+    }
 }
