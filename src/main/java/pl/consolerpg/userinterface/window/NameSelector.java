@@ -27,8 +27,8 @@ public class NameSelector extends UIWindow {
             "asdfghjkl",
             "zxcvbnm"};
 
-    private final int xStart = 2;
-    private final int yStart = 5;
+    private final int xStart = 18;
+    private final int yStart = 7;
 
     private int selectedX = xStart;
     private int selectedY = yStart;
@@ -115,7 +115,7 @@ public class NameSelector extends UIWindow {
                         }
                         else move(selectedX, newY);
                     }
-                    else selectSection(selectedX > letters[0].length() / 2 ? 2 : 1);
+                    else selectSection(selectedX - xStart > letters[1].length() / 2 ? 2 : 1);
                 }
                 else if (event.getKeyCode() == KeyEvent.VK_UP) {
                     if (selectedY > yStart) move(selectedX, selectedY - 2);
@@ -142,12 +142,12 @@ public class NameSelector extends UIWindow {
 
             @Override
             public void select() {
-                display[11][xStart] = "^";
+                display[yStart + letters.length * 2][xStart] = "^";
             }
 
             @Override
             public void deselect() {
-                display[11][xStart] = " ";
+                display[yStart + letters.length * 2][xStart] = " ";
             }
 
             @Override
@@ -174,12 +174,12 @@ public class NameSelector extends UIWindow {
 
             @Override
             public void select() {
-                display[11][xStart + 6] = "^";
+                display[yStart + letters.length * 2][xStart + 6] = "^";
             }
 
             @Override
             public void deselect() {
-                display[11][xStart + 6] = " ";
+                display[yStart + letters.length * 2][xStart + 6] = " ";
             }
 
             @Override
@@ -221,15 +221,15 @@ public class NameSelector extends UIWindow {
                         "|                                                |\n" +
                         "|  YOUR NAME =                                   |\n" +
                         "|                                                |\n" +
-                        "| qwertyuiop                                     |\n" +
-                        "|                                                |\n" +
-                        "| asdfghjkl                                      |\n" +
-                        "|                                                |\n" +
-                        "| zxcvbnm                                        |\n" +
-                        "|                                                |\n" +
-                        "| Space Backspace                                |\n" +
                         "|                                                |\n" +
                         "|                                                |\n" +
+                        "|                 qwertyuiop                     |\n" +
+                        "|                                                |\n" +
+                        "|                 asdfghjkl                      |\n" +
+                        "|                                                |\n" +
+                        "|                 zxcvbnm                        |\n" +
+                        "|                                                |\n" +
+                        "|                 Space Backspace                |\n" +
                         "|                                                |\n" +
                         "|                                                |\n" +
                         "|                                                |\n" +
