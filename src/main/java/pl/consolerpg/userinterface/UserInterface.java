@@ -1,5 +1,8 @@
 package pl.consolerpg.userinterface;
 
+import pl.consolerpg.userinterface.window.NameSelector;
+import pl.consolerpg.userinterface.window.UIWindow;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -9,19 +12,26 @@ import javax.swing.*;
 
 public class UserInterface extends JFrame {
 
-    private static final int KEY_UP = 38;
-    private static final int KEY_DOWN = 40;
-    private static final int KEY_LEFT = 37;
-    private static final int KEY_RIGHT = 39;
+    public static final int KEY_UP = 38;
+    public static final int KEY_DOWN = 40;
+    public static final int KEY_LEFT = 37;
+    public static final int KEY_RIGHT = 39;
 
-    private String[][] map = new String[18][50];
+    public static final int SHIFT = 16;
+    public static final int ENTER = 13;
+
+    private final String[][] map = new String[18][50];
     private int playerX = 9;
     private int playerY = 9;
+
+    JTextPane testPane;
+
+    private UIWindow openWindow;
 
     public UserInterface() {
         super("Karol's Console RPG game");
 
-        JTextPane testPane = new JTextPane();
+        testPane = new JTextPane();
         testPane.setBackground(Color.BLACK);
         testPane.setForeground(Color.WHITE);
         testPane.setFont(new Font(Font.DIALOG_INPUT, Font.PLAIN, 20));
@@ -50,7 +60,7 @@ public class UserInterface extends JFrame {
         setSize(800, 600);
         setFocusable(true);
         setLocationRelativeTo(null);
-
+        setFocusTraversalKeysEnabled(false);
         generateMap();
         addKeyListener(new KeyListener() {
             @Override
@@ -60,6 +70,15 @@ public class UserInterface extends JFrame {
 
             @Override
             public void keyPressed(KeyEvent keyEvent) {
+
+
+                //Blokada ruchu w wypadku otwartego okienka
+                if (openWindow != null) {
+                    openWindow.onKeyPress(keyEvent);
+                    updateWindowDisplay();
+                    return;
+                }
+
                 int keyPressed = keyEvent.getKeyCode();
                 map[playerX][playerY] = " ";
                 switch (keyPressed) {
@@ -83,12 +102,21 @@ public class UserInterface extends JFrame {
 
             @Override
             public void keyReleased(KeyEvent keyEvent) {
-                // Do nothing
+                if (openWindow != null) {
+                    openWindow.onKeyRelease(keyEvent);
+                    updateWindowDisplay();
+                }
             }
         });
 
         testPane.setText(mapToString());
+
+
+        //Test wybierania nazwy
+        applyWindow(new NameSelector());
+
         requestFocusInWindow();
+
     }
 
     private String task() {
@@ -153,16 +181,13 @@ public class UserInterface extends JFrame {
 
     }
 
+
+    //Zamiana tablicy na stringa przeniesiona do UIUtils
     private String mapToString() {
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                output.append(map[i][j]);
-            }
-            output.append("\n");
-        }
-        return output.toString();
+        return UIUtils.tableToString(map);
     }
+
+
 
     private void generateMap() {
         for (int i = 0; i < map.length; i++) {
@@ -186,6 +211,17 @@ public class UserInterface extends JFrame {
             map[12][i] = "X";
             map[map.length - 1][i] = "X";
         }
+    }
+
+
+    // UIWindow
+    public void applyWindow(UIWindow window) {
+        openWindow = window;
+        updateWindowDisplay();
+    }
+
+    public void updateWindowDisplay() {
+        testPane.setText(UIUtils.tableToString(openWindow.display()));
     }
 
 }
